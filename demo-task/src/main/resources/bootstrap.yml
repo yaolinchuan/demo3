@@ -1,0 +1,91 @@
+server:
+  port: 8011
+spring:
+  application:
+    name: task
+  sleuth:
+    log:
+      slf4j:
+        enabled: true
+    feign:
+      enabled: true
+    sampler:
+      percentage: 1.0
+    stream:
+      enabled: true
+      group: sleuth
+  cloud:
+    task:
+
+    config:
+      discovery:
+        enabled: false
+        service-id: CONFIGSERVER
+      enabled: false
+      fail-fast: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/usercenter
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        dialet: org.hibernate.dialect.MySQL5Dialect
+    bus:
+      refresh:
+        enabled: true
+      enabled: true
+    stream:
+      instance-index: 0
+      instance-count: 1
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          zk-nodes: 127.0.0.1:2181
+          auto-add-partitions: true
+          auto-create-topics: true
+          min-partition-count: 1
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    instance-id: ${spring.application.name}:${server.port}
+    health-check-url-path: /health
+    status-page-url-path: /info
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+#监控配置
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+  actuator:
+    enabled: true
+    sensitive: false
+  autoconfig:
+    enabled: true
+    sensitive: false
+  refresh:
+    enabled: true
+    sensitive: false
+  health:
+    enabled: true
+    sensitive: false
+#监控 end
+hystrix:
+  stream:
+    queue:
+      content-type: application/json
+      destination: springCloudHystrixStream
+logging:
+  level:
+    root: debug
+management:
+  security:
+    enabled: false
