@@ -1,0 +1,40 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: testserver
+  sleuth:
+    log:
+      slf4j:
+        enabled: true
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    instance-id: ${spring.application.name}:${server.port}
+    health-check-url-path: /health
+    status-page-url-path: /info
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+#���Ȩ������
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+  actuator:
+    enabled: true
+    sensitive: false
+  autoconfig:
+    enabled: true
+    sensitive: false
+  refresh:
+    enabled: true
+    sensitive: false
+  health:
+    enabled: true
+    sensitive: false
+logging:
+  level:
+    com.example.demo.testserver.Resource: info

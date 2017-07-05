@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: eureka
+eureka:
+  server:
+    enable-self-preservation: true
+  instance:
+    non-secure-port: ${server.port}
+    appname: discovery
+    instance-id: ${eureka.instance.appname}:${eureka.instance.non-secure-port}
+    health-check-url-path: /health
+    status-page-url-path: /info
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+    fetch-registry: true
+server:
+  port: 8001
+
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+  actuator:
+    enabled: true
+    sensitive: false
+  autoconfig:
+    enabled: true
+    sensitive: false
+  refresh:
+    enabled: true
+    sensitive: false
+  health:
+    enabled: true
+    sensitive: false

@@ -1,0 +1,35 @@
+version: '2'
+services:
+  zookeeper:
+    hostname: zookeeper
+    image: wurstmeister/zookeeper
+    networks:
+      - demo-net
+    ports:
+      - "22:22"
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    volumes:
+      - "/d/vm/zookeeper/conf:/opt/zookeeper-3.4.9/conf"
+      - "/d/vm/zookeeper/data:/opt/zookeeper-3.4.9/data"
+
+  kafka:
+    hostname: kafka
+    image: wurstmeister/kafka:0.10.1.1
+    ports:
+      - "9092:9092"
+    links:
+      - "zookeeper:zk"
+    networks:
+      - demo-net
+    environment:
+      - "ZK:zk"
+      - "KAFKA_ZOOKEEPER_CONNECT:192.168.1.106:2181"
+      - "KAFKA_ADVERTISED_HOST_NAME:192.168.1.106"
+      - "KAFKA_ADVERTISED_PORT:9092"
+      - "KAFKA_BROKER_ID:1"
+      - "HOST_IP:kafka"
+networks:
+  demo-net:
+    driver: bridge

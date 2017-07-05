@@ -1,0 +1,49 @@
+info:
+  component: Turbine App
+
+server:
+  port: 8989
+spring:
+  application:
+    name: turbine
+  cloud:
+    stream:
+      instance-index: 0
+      instance-count: 1
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          zk-nodes: 127.0.0.1:2181
+          auto-add-partitions: true
+          auto-create-topics: true
+          min-partition-count: 1
+
+management:
+  security:
+    enabled: false
+  port: 8990
+
+turbine:
+  stream:
+    enabled: true
+    destination: springCloudHystrixStream
+    content-type: application/json
+  aggregator:
+    clusterConfig: TESTCLIENT
+  appConfig: testclient
+  clusterNameExpression: metadata['cluster']
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    appname: turbine
+    instance-id: ${spring.application.name}:${server.port}
+    health-check-url-path: /health
+    status-page-url-path: /info
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+      registerWithEureka: true
+      fetchRegistry: true
+

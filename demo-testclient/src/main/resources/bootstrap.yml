@@ -1,0 +1,84 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: testclient
+#  zipkin:
+#    base-url: http://localhost:8006
+  sleuth:
+    log:
+      slf4j:
+        enabled: true
+    feign:
+      enabled: true
+    sampler:
+      percentage: 1.0
+    stream:
+      enabled: true
+      group: sleuth
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIGSERVER
+      enabled: true
+      fail-fast: true
+    bus:
+      refresh:
+        enabled: true
+      enabled: true
+    stream:
+      instance-index: 0
+      instance-count: 1
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          zk-nodes: 127.0.0.1:2181
+          auto-add-partitions: true
+          auto-create-topics: true
+          min-partition-count: 1
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    appname: testclient
+    instance-id: ${spring.application.name}:${server.port}
+    health-check-url-path: /health
+    status-page-url-path: /info
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+feign:
+  hystrix:
+    enabled: true
+#监控配置
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+  actuator:
+    enabled: true
+    sensitive: false
+  autoconfig:
+    enabled: true
+    sensitive: false
+  refresh:
+    enabled: true
+    sensitive: false
+  health:
+    enabled: true
+    sensitive: false
+#监控 end
+hystrix:
+  stream:
+    queue:
+      content-type: application/json
+      destination: springCloudHystrixStream
+logging:
+  level:
+    root: info
+
+management:
+  security:
+    enabled: false

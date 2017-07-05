@@ -1,0 +1,17 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: monitor
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    appname: monitor
+    instance-id: ${spring.application.name}:${server.port}
+    health-check-url-path: /health
+    status-page-url-path: /info
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
