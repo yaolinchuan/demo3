@@ -20,6 +20,8 @@ import java.util.Date;
 public class TaskRunService {
     @Autowired
     private TaskRunOutputResitory taskRunOutputResitory;
+
+
     @BeforeTask
     public void init(TaskExecution taskExecution) {
         String execDate = new SimpleDateFormat().format(new Date());

@@ -16,7 +16,8 @@ spring:
       group: sleuth
   cloud:
     task:
-
+      #任务执行完关闭程序设置
+      closecontext_enable: false
     config:
       discovery:
         enabled: false
@@ -85,7 +86,11 @@ hystrix:
       destination: springCloudHystrixStream
 logging:
   level:
-    root: debug
+    root: info
+    org:
+      springframework:
+        cloud:
+          task: debug
 management:
   security:
     enabled: false
