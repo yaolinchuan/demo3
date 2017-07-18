@@ -11,9 +11,9 @@ spring:
         enabled: true
     config:
       discovery:
-        enabled: true
+        enabled: false
         service-id: CONFIGSERVER
-      enabled: true
+      enabled: false
       fail-fast: true
     bus:
       refresh:
@@ -86,13 +86,17 @@ ribbon:
   #对下个实例的重试次数
   MaxAutoRetriesNextServer: 2
 
+  retryableStatusCodes: 404,502
+
 zuul:
+  retryable: true
   ignored-services: '*'
   routes:
     testserver:
       sensitiveHeaders:
       path: /testserver/**
       stripPrefix: true
+
   filter:
     root: filter
     interval: 5

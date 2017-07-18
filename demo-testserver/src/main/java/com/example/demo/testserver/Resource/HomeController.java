@@ -34,9 +34,9 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
-    public void test(@RequestBody String s)  {
-        System.out.print(s);
+    @RequestMapping(value = "/test")
+    public String test()  {
+       return "test";
 
     }
 }

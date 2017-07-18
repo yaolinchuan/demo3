@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Created by liyuhong on 2017/6/27.
  */
-@FeignClient(value = "testservice",fallback = HomeHystrixService.class)
+@FeignClient(value = "testserver",fallback = HomeHystrixService.class)
 public interface HomeService {
 
     @RequestMapping("/")

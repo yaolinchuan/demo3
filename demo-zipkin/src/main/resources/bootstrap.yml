@@ -1,6 +1,20 @@
+server:
+  port: 9411
 spring:
   application:
     name: zipkin
+  datasource:
+    url: jdbc:mysql://localhost:3306/zipkin
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        dialet: org.hibernate.dialect.MySQL5Dialect
   stream:
     instance-index: 0
     instance-count: 1
@@ -23,3 +37,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8001/eureka/
+zipkin:
+  storage:
+    type: mysql

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: demo-security
+server:
+  port: 8080
+swagger:
+  basePackage: com.example.demo.usercenter.resource
+  author: liyuhong
+  title: 安全中心
+  description: 安全中心
+  url: http://localhost:8080
+  version: V1.0.1
+
+info:
+    name: ${spring.application.name}
+    description: Swagger2Markup demo
+    environment: ${spring.profiles.active}
+    version: 1.0.0

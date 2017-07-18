@@ -7,10 +7,13 @@ import com.netflix.zuul.groovy.GroovyCompiler;
 import com.netflix.zuul.groovy.GroovyFileFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
@@ -20,7 +23,22 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(FilterConfiguration.class)
 public class DemoApigatewayApplication {
 
+	/**
+	 * 动态路由
+	 * @return
+	 */
+	@Bean
+	@RefreshScope
+	@ConfigurationProperties("zuul")
+	public ZuulProperties zuulProperties() {
+		return new ZuulProperties();
+	}
 
+	/**
+	 * 动态过滤器
+	 * @param filterConfiguration
+	 * @return
+	 */
 	@Bean
 	public FilterLoader filterLoader(FilterConfiguration filterConfiguration){
 	    FilterLoader filterLoader= FilterLoader.getInstance();
