@@ -1,16 +1,16 @@
 package com.example.demo.security.resource;
 
+import com.sun.net.httpserver.HttpContext;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 /**
@@ -41,4 +41,12 @@ public class HomeController {
         log.info(principal.toString());
         return username;
     }
+    @ApiOperation(value="test",  notes="test",produces = "application/json")
+    @PostMapping(value = "/test" )
+    public User test(@RequestBody User user) {
+
+        return user;
+    }
+
+
 }

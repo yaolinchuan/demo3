@@ -1,0 +1,7 @@
+swagger:
+  basePackage: com.example.demo.security.resource
+  author: liyuhong
+  title: 安全中心
+  description: 安全中心
+  url: http://localhost:8080
+  version: V1.0.1
