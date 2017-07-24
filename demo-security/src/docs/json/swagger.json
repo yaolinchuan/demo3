@@ -1,0 +1,1 @@
+{"swagger":"2.0","info":{"description":"${swagger.description}","version":"${swagger.version}","title":"${swagger.title}","termsOfService":"${swagger.url}"},"host":"localhost","basePath":"/"}
