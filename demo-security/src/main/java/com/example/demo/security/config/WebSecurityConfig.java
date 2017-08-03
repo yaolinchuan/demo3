@@ -3,6 +3,7 @@ package com.example.demo.security.config;
 import com.example.demo.security.handler.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
@@ -10,6 +11,7 @@ import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,7 +28,9 @@ import java.util.List;
 /**
  * Created by liyuhong on 2017/7/15.
  */
+@Configuration
 @EnableWebSecurity
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService(){
@@ -39,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
-        web.ignoring().antMatchers("/**");
+        //web.ignoring().antMatchers("/**");
 
     }
 
@@ -67,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          http
                  .authorizeRequests()
                  .accessDecisionManager(accessDecisionManager())
-                 .expressionHandler(expressionHandler())
+                 //.expressionHandler(expressionHandler())
                  .anyRequest().authenticated()
                  .and()
                  .formLogin()
@@ -88,12 +92,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     //安全消息本地化
-    @Bean
-    public ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource(){
-        ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource=new ReloadableResourceBundleMessageSource();
-        reloadableResourceBundleMessageSource .setBasename("classpath:org/springframework/security/messages");
-        return reloadableResourceBundleMessageSource;
-    }
+//    @Bean
+//    public ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource(){
+//        ReloadableResourceBundleMessageSource reloadableResourceBundleMessageSource=new ReloadableResourceBundleMessageSource();
+//        reloadableResourceBundleMessageSource .setBasename("classpath:org/springframework/security/messages");
+//        return reloadableResourceBundleMessageSource;
+//    }
 
 
 
@@ -108,12 +112,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public RoleHierarchyVoter roleVoter() {
         return new RoleHierarchyVoter(roleHierarchy());
     }
-    @Bean
-    public DefaultWebSecurityExpressionHandler expressionHandler(){
-        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy());
-        return expressionHandler;
-    }
+
 
     @Bean
     @SuppressWarnings(value = { "rawtypes" })
@@ -126,7 +125,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AffirmativeBased(decisionVoters);
     }
 
-
+    @Bean
+    public DefaultWebSecurityExpressionHandler expressionHandler(){
+        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
+        expressionHandler.setRoleHierarchy(roleHierarchy());
+        return expressionHandler;
+    }
 
     @Autowired
     private LoginSuccessHandler loginSuccessHandler;

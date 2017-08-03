@@ -82,3 +82,4 @@ logging:
 management:
   security:
     enabled: false
+spring.boot.admin.url: localhost:8090

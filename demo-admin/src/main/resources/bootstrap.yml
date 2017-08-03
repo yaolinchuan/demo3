@@ -1,0 +1,28 @@
+
+eureka:
+  instance:
+    non-secure-port: ${server.port}
+    appname: discovery
+    instance-id: ${eureka.instance.appname}:${eureka.instance.non-secure-port}
+    health-check-url-path: /health
+    status-page-url-path: /info
+    lease-expiration-duration-in-seconds: 30
+    lease-renewal-interval-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8001}/eureka/
+      registryFetchIntervalSeconds: 5
+server.port: 8090
+spring:
+  application:
+    name: admin
+  boot:
+    admin:
+      turbine:
+        clusters: default
+        location: turbine
+      routes:
+        endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
+management:
+  security:
+    enabled: false

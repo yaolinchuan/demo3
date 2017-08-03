@@ -10,3 +10,6 @@ info:
     description: Swagger2Markup demo
     environment: ${spring.profiles.active}
     version: 1.0.0
+logging:
+  level:
+    root: debug

@@ -10,9 +10,9 @@ services:
       - "2181:2181"
       - "2888:2888"
       - "3888:3888"
-    volumes:
-      - "/d/vm/zookeeper/conf:/opt/zookeeper-3.4.9/conf"
-      - "/d/vm/zookeeper/data:/opt/zookeeper-3.4.9/data"
+#    volumes:
+#      - "/d/vm/zookeeper/conf:/opt/zookeeper-3.4.9/conf"
+#      - "/d/vm/zookeeper/data:/opt/zookeeper-3.4.9/data"
 
   kafka:
     hostname: kafka
@@ -21,15 +21,17 @@ services:
       - "9092:9092"
     links:
       - "zookeeper:zk"
+    depends_on:
+      - zookeeper
     networks:
       - demo-net
     environment:
-      - "ZK:zk"
-      - "KAFKA_ZOOKEEPER_CONNECT:192.168.1.106:2181"
-      - "KAFKA_ADVERTISED_HOST_NAME:192.168.1.106"
-      - "KAFKA_ADVERTISED_PORT:9092"
-      - "KAFKA_BROKER_ID:1"
-      - "HOST_IP:kafka"
+      - ZK=zookeeper
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_HOST_NAME=192.168.40.252
+      - KAFKA_ADVERTISED_PORT=9092
+      - KAFKA_BROKER_ID=1
+      - HOST_IP=kafka
 networks:
   demo-net:
     driver: bridge
