@@ -20,6 +20,13 @@ public class HomeController {
     private HomeService homeService;
     @RequestMapping("/")
     public String home(){
-        return homeService.home()+test;
+        return homeService.home();
+    }
+
+
+    @RequestMapping(value = "/test")
+    public String test() {
+        return test;
+
     }
 }

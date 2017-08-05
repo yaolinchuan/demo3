@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,8 @@ public class HomeController {
 
     @ApiOperation(value="主页",  notes="主页",produces = "application/json")
     @GetMapping(value = "/user" )
-    @Secured("ROLE_USER")
+    /// @Secured("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public String user(Principal principal) {
         String username;
         if (principal instanceof UserDetails) {

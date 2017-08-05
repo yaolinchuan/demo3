@@ -8,6 +8,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.AuthenticatedVoter;
 import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -71,7 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          http
                  .authorizeRequests()
                  .accessDecisionManager(accessDecisionManager())
-                 //.expressionHandler(expressionHandler())
+
+                 //   .expressionHandler(expressionHandler())
                  .anyRequest().authenticated()
                  .and()
                  .formLogin()
@@ -121,7 +123,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         WebExpressionVoter webExpressionVoter = new WebExpressionVoter();
         webExpressionVoter.setExpressionHandler(expressionHandler());
         decisionVoters.add(webExpressionVoter);
-        decisionVoters.add(roleVoter());
+//        decisionVoters.add(roleVoter());
+//        decisionVoters.add(new AuthenticatedVoter());
         return new AffirmativeBased(decisionVoters);
     }
 

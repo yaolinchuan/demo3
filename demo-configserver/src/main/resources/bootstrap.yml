@@ -7,7 +7,7 @@ spring:
     config:
       server:
         git:
-          uri: localhost:10080/liyuhong/demo.git
+          uri: http://localhost:10080/liyuhong/demo.git
           search-paths: /configstore
           username: liyuhong
           password: li123456

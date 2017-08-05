@@ -152,6 +152,7 @@ services:
     - OAUTH_AZURE_TENANT_ID=
   jenkins:
     image: jenkins
+    restart: always
     depends_on:
       - gitlab
     ports:

@@ -3,7 +3,7 @@ services:
   zookeeper:
     hostname: zookeeper
     image: wurstmeister/zookeeper
-
+    restart: always
     ports:
       - "22:22"
       - "2181:2181"
@@ -16,6 +16,7 @@ services:
   kafka:
     hostname: kafka
     image: wurstmeister/kafka:0.10.1.1
+    restart: always
     ports:
       - "9092:9092"
     links:
@@ -30,5 +31,14 @@ services:
       - KAFKA_ADVERTISED_PORT=9092
       - KAFKA_BROKER_ID=1
       - HOST_IP=kafka
-
+  mysql:
+    image: mysql
+    restart: always
+    hostname: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - "/f/vm/docker/mysql:/var/lib/mysql"
 
