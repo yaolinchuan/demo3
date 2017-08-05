@@ -3,8 +3,7 @@ services:
   zookeeper:
     hostname: zookeeper
     image: wurstmeister/zookeeper
-    networks:
-      - demo-net
+
     ports:
       - "22:22"
       - "2181:2181"
@@ -23,15 +22,13 @@ services:
       - "zookeeper:zk"
     depends_on:
       - zookeeper
-    networks:
-      - demo-net
+
     environment:
       - ZK=zookeeper
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-      - KAFKA_ADVERTISED_HOST_NAME=192.168.40.252
+      - KAFKA_ADVERTISED_HOST_NAME=10.0.75.1
       - KAFKA_ADVERTISED_PORT=9092
       - KAFKA_BROKER_ID=1
       - HOST_IP=kafka
-networks:
-  demo-net:
-    driver: bridge
+
+

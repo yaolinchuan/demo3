@@ -22,6 +22,8 @@
 		<module>demo-apigateway</module>
 		<module>demo-task</module>
 		<module>demo-ui</module>
+		<module>demo-security</module>
+		<module>demo-admin</module>
 
 
 	</modules>
