@@ -14,17 +14,18 @@
 	<modules>
 		<module>demo-eureka</module>
 		<module>demo-configserver</module>
-		<module>demo-testclient</module>
 		<module>demo-testserver</module>
+        <module>demo-testclient</module>
 		<module>demo-turbine</module>
 		<module>demo-monitor</module>
 		<module>demo-zipkin</module>
 		<module>demo-apigateway</module>
 		<module>demo-task</module>
 		<module>demo-ui</module>
-		<module>demo-security</module>
 		<module>demo-admin</module>
+        <module>demo-security</module>
 		<module>demo-oauth2resource</module>
+        <module>demo-oauth2server</module>
 
 
 	</modules>

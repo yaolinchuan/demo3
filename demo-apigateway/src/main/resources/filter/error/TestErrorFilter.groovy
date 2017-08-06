@@ -26,7 +26,7 @@ class TestErrorFilter extends ZuulFilter {
     @Override
     boolean shouldFilter() {
         log.info("this is a test error shouldFilter")
-        return true
+        return false
     }
 
     @Override

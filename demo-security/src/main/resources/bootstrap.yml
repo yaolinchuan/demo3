@@ -2,7 +2,7 @@ spring:
   application:
     name: demo-security
 server:
-  port: 8080
+  port: 8012
 
 
 info:
