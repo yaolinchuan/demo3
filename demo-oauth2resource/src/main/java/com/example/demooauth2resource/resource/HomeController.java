@@ -8,7 +8,7 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public String home() {
-        return "hello world";
+        return "hello world from oauth2resource";
 
     }
 }

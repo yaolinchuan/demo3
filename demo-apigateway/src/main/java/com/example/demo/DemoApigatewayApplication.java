@@ -16,13 +16,14 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
 @EnableZuulProxy
 @EnableHystrix
 @EnableDiscoveryClient
 @EnableConfigurationProperties(FilterConfiguration.class)
-@EnableOAuth2Sso
+@EnableResourceServer
 public class DemoApigatewayApplication {
 
 	/**

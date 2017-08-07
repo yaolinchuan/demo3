@@ -26,6 +26,7 @@
         <module>demo-security</module>
 		<module>demo-oauth2resource</module>
         <module>demo-oauth2server</module>
+        <module>demo-oauth2sso</module>
 
 
 	</modules>
