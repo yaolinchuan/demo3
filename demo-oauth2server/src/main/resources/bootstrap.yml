@@ -1,8 +1,11 @@
 server:
   port: 8012
+  context-path: /uaa
+  use-forward-headers: false
 spring:
   application:
     name: oauth2server
+
 eureka:
   instance:
     non-secure-port: ${server.port}
@@ -32,5 +35,7 @@ endpoints:
     enabled: true
     sensitive: false
 security:
+  basic:
+    enabled: false
   user:
-    password: password
+    password: a
