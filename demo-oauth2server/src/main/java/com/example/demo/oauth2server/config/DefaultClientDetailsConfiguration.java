@@ -62,8 +62,8 @@ public class DefaultClientDetailsConfiguration implements InitializingBean {
                     .map(scope -> ScopeEntity.builder().value(scope).build())//
                     .collect(Collectors.toList()));
         }
-        BaseClientDetails clientDetails = new BaseClientDetails("api", null, API_SCOPES, API_GRANT_TYPES, null);
-        clientDetails.setClientSecret("api");
+        BaseClientDetails clientDetails = new BaseClientDetails("acme", null, API_SCOPES, API_GRANT_TYPES, null);
+        clientDetails.setClientSecret("acmesecret");
         clientDetails.setRegisteredRedirectUri(Collections.emptySet());
         try {
             oAuth2DatabaseClientDetailsService.addClientDetails(clientDetails);
