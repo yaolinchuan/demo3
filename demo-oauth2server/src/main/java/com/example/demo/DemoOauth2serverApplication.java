@@ -7,6 +7,7 @@ import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -32,6 +33,8 @@ import java.security.KeyPair;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableJpaAuditing
+public class DemoOauth2serverApplication {
 @EnableWebSecurity
 public class DemoOauth2serverApplication extends WebMvcConfigurerAdapter {
 

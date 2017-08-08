@@ -1,7 +1,7 @@
 swagger:
   basePackage: com.example.demo.security.resource
   author: liyuhong
-  title: °²È«ÖÐÐÄ
-  description: °²È«ÖÐÐÄ
+  title: ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½
+  description: ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½
   url: http://localhost:8080
   version: V1.0.1
