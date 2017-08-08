@@ -1,15 +1,15 @@
 package com.example.demo.oauth2server.config;
 
-import com.example.demo.oauth2server.entity.ClientDetailsEntity;
-import com.example.demo.oauth2server.entity.ClientDetailsLimitEntity;
-import com.example.demo.oauth2server.entity.GrantTypeEntity;
-import com.example.demo.oauth2server.entity.ScopeEntity;
+import com.example.demo.oauth2server.entity.*;
 import com.example.demo.oauth2server.repository.ClientDetailsRepository;
 import com.example.demo.oauth2server.repository.GrantTypeRepository;
+import com.example.demo.oauth2server.repository.ResourceIdRepository;
 import com.example.demo.oauth2server.repository.ScopeRepository;
 import com.example.demo.oauth2server.servicer.OAuth2DatabaseClientDetailsService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.loader.ResourceEntry;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.resource.jdbc.ResourceRegistry;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -37,12 +37,16 @@ public class DefaultClientDetailsConfiguration implements InitializingBean {
     private static final String[]              DEFAULT_SCOPES      = { "read", "write", "trust" };
 
     private static final String                API_SCOPES          = StringUtils.join(DEFAULT_SCOPES, ",");
+    private static final String[]              DEFAULT_RESOURCES     = { "oauth2resource", "apigateway" };
+    private static final String                API_RESOURCES          = StringUtils.join(DEFAULT_RESOURCES, ",");
 
     @Autowired
     private GrantTypeRepository grantTypeRepository;
 
     @Autowired
     private ScopeRepository scopeRepository;
+    @Autowired
+    private ResourceIdRepository resourceIdRepository;
 
     @Autowired
     private OAuth2DatabaseClientDetailsService oAuth2DatabaseClientDetailsService;
@@ -62,7 +66,13 @@ public class DefaultClientDetailsConfiguration implements InitializingBean {
                     .map(scope -> ScopeEntity.builder().value(scope).build())//
                     .collect(Collectors.toList()));
         }
-        BaseClientDetails clientDetails = new BaseClientDetails("acme", null, API_SCOPES, API_GRANT_TYPES, null);
+        if (resourceIdRepository.count() == 0) {
+            resourceIdRepository.save(Arrays.stream(DEFAULT_RESOURCES)//
+                    .map(resourceId -> ResourceIdEntity.builder().value(resourceId).build())//
+                    .collect(Collectors.toList()));
+        }
+
+        BaseClientDetails clientDetails = new BaseClientDetails("acme", API_RESOURCES, API_SCOPES, API_GRANT_TYPES, null);
         clientDetails.setClientSecret("acmesecret");
         clientDetails.setRegisteredRedirectUri(Collections.emptySet());
         try {
