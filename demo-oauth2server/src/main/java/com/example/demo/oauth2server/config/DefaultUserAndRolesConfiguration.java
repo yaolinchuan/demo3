@@ -46,19 +46,21 @@ public class DefaultUserAndRolesConfiguration implements InitializingBean {
     @Transactional
     @Override
     public void afterPropertiesSet() throws Exception {
-        List<RoleEntity> defaultRoleEntities = new ArrayList<>();
-        Arrays.stream(DEFAULT_ROLES).forEach(role -> defaultRoleEntities.add(roleRepository.findOneByName(role).orElseGet(() -> roleRepository.save(RoleEntity.builder().name(role).build()))));
+        if (userRepository.count() == 0) {
+            List<RoleEntity> defaultRoleEntities = new ArrayList<>();
+            Arrays.stream(DEFAULT_ROLES).forEach(role -> defaultRoleEntities.add(roleRepository.findOneByName(role).orElseGet(() -> roleRepository.save(RoleEntity.builder().name(role).build()))));
 
-        UserEntity defaultAdminUserEntity = userRepository.findOneByUsername(DEFAULT_ADMIN_USERNAME).orElseGet(() -> userRepository.save(UserEntity.builder().username(DEFAULT_ADMIN_USERNAME).password(passwordEncoder.encode(DEFAULT_ADMIN_PASSWORD)).build()));
+            UserEntity defaultAdminUserEntity = userRepository.findOneByUsername(DEFAULT_ADMIN_USERNAME).orElseGet(() -> userRepository.save(UserEntity.builder().username(DEFAULT_ADMIN_USERNAME).password(passwordEncoder.encode(DEFAULT_ADMIN_PASSWORD)).build()));
 
-        defaultRoleEntities.stream().forEach(roleEntity -> userRoleXrefRepository.save(UserRoleXrefEntity.builder().user(defaultAdminUserEntity).role(roleEntity).build()));
+            defaultRoleEntities.stream().forEach(roleEntity -> userRoleXrefRepository.save(UserRoleXrefEntity.builder().user(defaultAdminUserEntity).role(roleEntity).build()));
 
-        userRepository.findOneByUsername(DEFAULT_USER_USERNAME).orElseGet(() -> {
-            UserEntity userEntity = UserEntity.builder().username(DEFAULT_USER_USERNAME).password(passwordEncoder.encode(DEFAULT_USER_PASSWORD)).build();
+            userRepository.findOneByUsername(DEFAULT_USER_USERNAME).orElseGet(() -> {
+                UserEntity userEntity = UserEntity.builder().username(DEFAULT_USER_USERNAME).password(passwordEncoder.encode(DEFAULT_USER_PASSWORD)).build();
 
-            roleRepository.findOneByName("USER").ifPresent(roleEntity -> userEntity.setRoles(Collections.singleton(UserRoleXrefEntity.builder().user(userEntity).role(roleEntity).build())));
+                roleRepository.findOneByName("USER").ifPresent(roleEntity -> userEntity.setRoles(Collections.singleton(UserRoleXrefEntity.builder().user(userEntity).role(roleEntity).build())));
 
-            return userRepository.save(userEntity);
-        });
+                return userRepository.save(userEntity);
+            });
+        }
     }
 }
