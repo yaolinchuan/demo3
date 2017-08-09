@@ -92,6 +92,10 @@ zuul:
   retryable: true
   ignored-services: '*'
   routes:
+    oauth2server:
+      sensitiveHeaders:
+      path: /oauth2server/**
+      stripPrefix: false
     testserver:
       sensitiveHeaders:
       path: /testserver/**

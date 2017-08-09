@@ -34,7 +34,6 @@ import java.security.KeyPair;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableJpaAuditing
-public class DemoOauth2serverApplication {
 @EnableWebSecurity
 public class DemoOauth2serverApplication extends WebMvcConfigurerAdapter {
 
@@ -56,31 +55,31 @@ public class DemoOauth2serverApplication extends WebMvcConfigurerAdapter {
         registry.addViewController("/oauth/confirm_access").setViewName("authorize");
     }
 
-    @Order(ManagementServerProperties.ACCESS_OVERRIDE_ORDER)
-    @Configuration
-    protected static class LoginConfiguration extends WebSecurityConfigurerAdapter {
-
-        @Override
-        @Bean
-        public AuthenticationManager authenticationManagerBean() throws Exception {
-            return super.authenticationManagerBean();
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
-                    .anyRequest().authenticated();
-        }
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("user").password("password").roles("USER")
-                    .and()
-                    .withUser("admin").password("admin").roles("ADMIN");
-//            auth.parentAuthenticationManager(authenticationManager);
-        }
-    }
+//    @Order(ManagementServerProperties.ACCESS_OVERRIDE_ORDER)
+//    @Configuration
+//    protected static class LoginConfiguration extends WebSecurityConfigurerAdapter {
+//
+//        @Override
+//        @Bean
+//        public AuthenticationManager authenticationManagerBean() throws Exception {
+//            return super.authenticationManagerBean();
+//        }
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
+//                    .anyRequest().authenticated();
+//        }
+//
+//        @Override
+//        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//            auth.inMemoryAuthentication()
+//                    .withUser("user").password("password").roles("USER")
+//                    .and()
+//                    .withUser("admin").password("admin").roles("ADMIN");
+////            auth.parentAuthenticationManager(authenticationManager);
+//        }
+//    }
 
 //    @Configuration
 //    @EnableAuthorizationServer
