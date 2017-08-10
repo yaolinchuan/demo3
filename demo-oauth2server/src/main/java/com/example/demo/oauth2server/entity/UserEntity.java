@@ -19,30 +19,30 @@ import java.util.Set;
 @Table(name = "userinfos")
 public class UserEntity extends AbstractAuditable<Long> {
 
-    public static final String NAME_REGEX = "^[A-Za-z0-9_]*$";
+    public static final String           NAME_REGEX = "^[A-Za-z0-9_]*$";
 
     @NotNull
     @Pattern(regexp = NAME_REGEX)
     @Size(max = 50)
     @Column(name = "username", unique = true, nullable = false, length = 50)
-    private String username;
+    private String                       username;
 
     @NotNull
     @Size(min = 60, max = 60)
     @Column(name = "password_hash", length = 60, nullable = false)
-    private String password;
+    private String                       password;
 
     @NotNull
     @Column(nullable = false)
     @ColumnDefault("False")
-    private boolean disabled;
+    private boolean                      disabled;
 
     @Singular
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserRoleXrefEntity> roles;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UserRoleXrefEntity>      roles;
 
     @Singular
-    @OneToMany(mappedBy = "authority", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "authority", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserAuthorityXrefEntity> authorities;
 
 }

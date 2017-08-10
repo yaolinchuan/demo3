@@ -71,7 +71,7 @@ security:
   basic:
     enabled: false
 swagger:
-  basePackage: com.example.demo.oauth2server.resource
+  basePackage: com.example.demo.oauth2server.*
   author: liyuhong
   title: 授权中心
   description: oauth2

@@ -15,11 +15,11 @@ import javax.persistence.*;
 @Table(name = "user_authority_xref")
 public class UserAuthorityXrefEntity extends AbstractAuditable<Long> {
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "authority_id", nullable = false)
     @Where(clause = "disabled = False")
     private AuthorityEntity authority;

@@ -18,11 +18,11 @@ import javax.persistence.*;
 @Table(name = "macaw_role_authority_xref")
 public class RoleAuthorityXrefEntity extends AbstractAuditable<Long> {
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "role_id", nullable = false)
     private RoleEntity role;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "authority_id", nullable = false)
     @Where(clause = "disabled = False")
     private AuthorityEntity authority;

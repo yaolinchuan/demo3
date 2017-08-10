@@ -20,6 +20,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class OAuth2DatabaseClientDetailsService implements ClientDetailsService, ClientRegistrationService {
 
     private final Function<? super ClientDetailsEntity, ? extends BaseClientDetails> entityToDomain = entity -> {
