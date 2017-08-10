@@ -27,7 +27,7 @@ public class RoleEntity extends AbstractPersistable<Long> {
     @ColumnDefault("False")
     private boolean disabled;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RoleAuthorityXrefEntity> authorities;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)

@@ -1,6 +1,7 @@
 package com.example.demo.oauth2server.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "client_details")
+@DynamicUpdate(true)
 public class ClientDetailsEntity extends AbstractAuditable<Long> {
 
     @NonNull
@@ -33,22 +35,22 @@ public class ClientDetailsEntity extends AbstractAuditable<Long> {
     private Integer                                           refreshTokenValiditySeconds;
 
     @Singular
-    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<ClientDetailsToAuthorizedGrantTypeXrefEntity> authorizedGrantTypeXrefs;
 
     @Singular
-    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<ClientDetailsToScopesXrefEntity>              scopeXrefs;
 
     @Singular
-    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<ClientDetailsToResourceIdXrefEntity>          resourceIdXrefs;
 
     @Singular("redirectUri")
-    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<RedirectUriEntity>                            redirectUris;
 
-    @OneToOne(mappedBy = "clientDetail", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "clientDetail", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private ClientDetailsLimitEntity                                 clientLimit;
 
 }

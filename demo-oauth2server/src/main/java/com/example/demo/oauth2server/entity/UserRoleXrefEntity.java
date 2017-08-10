@@ -18,13 +18,13 @@ public class UserRoleXrefEntity extends AbstractAuditable<Long> {
 
     @NonNull
     @NotNull
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @NonNull
     @NotNull
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     @Where(clause = "disabled = False")
     private RoleEntity role;

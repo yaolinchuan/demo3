@@ -16,9 +16,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class DatabaseUserDetailService implements UserDetailsService {
 
     private static final String     ROLE_PREFIX = "ROLE_";
