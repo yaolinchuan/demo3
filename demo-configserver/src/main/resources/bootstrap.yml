@@ -60,3 +60,9 @@ endpoints:
 management:
   security:
     enabled: false
+encrypt:
+  failOnError: false
+  keyStore:
+    location: classpath:keystore.jks
+    password: ${KEYSTORE_PASSWORD:foobar} # don't use a default in production
+    alias: test
