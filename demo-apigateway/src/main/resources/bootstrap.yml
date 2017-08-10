@@ -92,6 +92,10 @@ zuul:
   retryable: true
   ignored-services: '*'
   routes:
+    oauth2server:
+      sensitiveHeaders:
+      path: /oauth2server/**
+      stripPrefix: true
     testserver:
       sensitiveHeaders:
       path: /testserver/**
@@ -116,11 +120,11 @@ security:
   basic:
     enabled: false
   oauth2:
-#    client:
-#      user-authorization-uri: http://localhost:8012/oauth/authorize
-#      client-id: acme
-#      client-secret: acmesecret
-#      access-token-uri: http://localhost:8012/oauth/token
+    client:
+      user-authorization-uri: http://localhost:8012/oauth/authorize
+      client-id: acme
+      client-secret: acmesecret
+      access-token-uri: http://localhost:8012/oauth/token
     resource:
       jwt:
         keyValue: |

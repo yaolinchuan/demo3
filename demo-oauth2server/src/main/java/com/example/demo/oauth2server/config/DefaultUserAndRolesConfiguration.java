@@ -23,13 +23,13 @@ import java.util.List;
 @Profile("dev")
 public class DefaultUserAndRolesConfiguration implements InitializingBean {
 
-    private static final String    DEFAULT_ADMIN_USERNAME = "admin";
-    private static final String    DEFAULT_ADMIN_PASSWORD = "admin888";
+    private static final String DEFAULT_ADMIN_USERNAME = "admin";
+    private static final String DEFAULT_ADMIN_PASSWORD = "admin888";
 
-    private static final String    DEFAULT_USER_USERNAME  = "user";
-    private static final String    DEFAULT_USER_PASSWORD  = "user888";
+    private static final String DEFAULT_USER_USERNAME = "user";
+    private static final String DEFAULT_USER_PASSWORD = "user888";
 
-    private static final String[]  DEFAULT_ROLES          = { "ADMIN", "USER" };
+    private static final String[] DEFAULT_ROLES = {"ADMIN", "USER"};
 
     @Autowired
     private UserRepository userRepository;

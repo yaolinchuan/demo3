@@ -1,6 +1,6 @@
 server:
   port: 8012
-  context-path: /uaa
+  context-path: /oauth2server
   use-forward-headers: false
 spring:
   application:
@@ -70,8 +70,6 @@ endpoints:
 security:
   basic:
     enabled: false
-  user:
-    password: a
 swagger:
   basePackage: com.example.demo.oauth2server.resource
   author: liyuhong

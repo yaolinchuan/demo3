@@ -29,16 +29,16 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DefaultClientDetailsConfiguration implements InitializingBean {
 
-    private static final String[]              DEFAULT_GRANT_TYPES = { "authorization_code", "refresh_token",
-            "password", "client_credentials" };
+    private static final String[] DEFAULT_GRANT_TYPES = {"authorization_code", "refresh_token",
+            "password", "client_credentials"};
 
-    private static final String                API_GRANT_TYPES     = StringUtils.join(DEFAULT_GRANT_TYPES, ",");
+    private static final String API_GRANT_TYPES = StringUtils.join(DEFAULT_GRANT_TYPES, ",");
 
-    private static final String[]              DEFAULT_SCOPES      = { "read", "write", "trust" };
+    private static final String[] DEFAULT_SCOPES = {"read", "write", "trust"};
 
-    private static final String                API_SCOPES          = StringUtils.join(DEFAULT_SCOPES, ",");
-    private static final String[]              DEFAULT_RESOURCES     = { "oauth2resource", "apigateway" };
-    private static final String                API_RESOURCES          = StringUtils.join(DEFAULT_RESOURCES, ",");
+    private static final String API_SCOPES = StringUtils.join(DEFAULT_SCOPES, ",");
+    private static final String[] DEFAULT_RESOURCES = {"oauth2resource", "apigateway"};
+    private static final String API_RESOURCES = StringUtils.join(DEFAULT_RESOURCES, ",");
 
     @Autowired
     private GrantTypeRepository grantTypeRepository;

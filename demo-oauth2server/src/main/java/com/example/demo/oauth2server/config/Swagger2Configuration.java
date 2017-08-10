@@ -43,6 +43,7 @@ public class Swagger2Configuration {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title(title)
@@ -51,9 +52,6 @@ public class Swagger2Configuration {
                 .version(version)
                 .build();
     }
-
-
-
 
 
 }

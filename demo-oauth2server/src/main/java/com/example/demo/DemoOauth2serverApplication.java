@@ -34,7 +34,6 @@ import java.security.KeyPair;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableJpaAuditing
-public class DemoOauth2serverApplication {
 @EnableWebSecurity
 public class DemoOauth2serverApplication extends WebMvcConfigurerAdapter {
 
@@ -56,67 +55,5 @@ public class DemoOauth2serverApplication extends WebMvcConfigurerAdapter {
         registry.addViewController("/oauth/confirm_access").setViewName("authorize");
     }
 
-    @Order(ManagementServerProperties.ACCESS_OVERRIDE_ORDER)
-    @Configuration
-    protected static class LoginConfiguration extends WebSecurityConfigurerAdapter {
 
-        @Override
-        @Bean
-        public AuthenticationManager authenticationManagerBean() throws Exception {
-            return super.authenticationManagerBean();
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
-                    .anyRequest().authenticated();
-        }
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("user").password("password").roles("USER")
-                    .and()
-                    .withUser("admin").password("admin").roles("ADMIN");
-//            auth.parentAuthenticationManager(authenticationManager);
-        }
-    }
-
-//    @Configuration
-//    @EnableAuthorizationServer
-//    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
-//
-//        @Autowired
-//        @Qualifier("authenticationManagerBean")
-//        private AuthenticationManager authenticationManager;
-//
-//        @Bean
-//        public JwtAccessTokenConverter jwtAccessTokenConverter() {
-//            JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//            KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource("keystore.jks"), "foobar".toCharArray())
-//                    .getKeyPair("test");
-//            converter.setKeyPair(keyPair);
-//            return converter;
-//        }
-//
-//        @Override
-//        public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-//            clients.inMemory()
-//                    .withClient("acme")
-//                    .secret("acmesecret")
-//                    .authorizedGrantTypes("authorization_code", "refresh_token","password")
-//                    .scopes("openid");
-//        }
-//
-//        @Override
-//        public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-//            endpoints.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter());
-//        }
-//
-//        @Override
-//        public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-//            oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
-//        }
-//
-//    }
 }

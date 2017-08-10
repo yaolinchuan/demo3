@@ -20,6 +20,7 @@ public final class OAuth2RefreshTokenJackson2SerializerDeserializer {
 
     private static final String TOKEN_VALUE = "value";
     private static final String EXPIRATION = "expiration";
+
     private OAuth2RefreshTokenJackson2SerializerDeserializer() {
     }
 

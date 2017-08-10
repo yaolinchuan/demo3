@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class DatabaseUserDetailService implements UserDetailsService {
 
-    private static final String     ROLE_PREFIX = "ROLE_";
+    private static final String ROLE_PREFIX = "ROLE_";
 
     @Autowired
     private UserRepository userRepository;
@@ -35,25 +35,25 @@ public class DatabaseUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findOneByUsername(username).map(userEntity -> //
-        new User(userEntity.getUsername(), //
-                 userEntity.getPassword(), //
-                 userEntity.getRoles().stream().map(userRoleXRef -> //
-                 new SimpleGrantedAuthority(prefixRoleName(userRoleXRef.getRole().getName())))//
-                           .collect(Collectors.toList())))//
-                             .orElseThrow(() -> new UsernameNotFoundException("User " + username
-                                                                              + " was not found in the database"));
+                new User(userEntity.getUsername(), //
+                        userEntity.getPassword(), //
+                        userEntity.getRoles().stream().map(userRoleXRef -> //
+                                new SimpleGrantedAuthority(prefixRoleName(userRoleXRef.getRole().getName())))//
+                                .collect(Collectors.toList())))//
+                .orElseThrow(() -> new UsernameNotFoundException("User " + username
+                        + " was not found in the database"));
     }
 
     public Triple<Long, String, Long> loadClientByToken(String tokenId) {
         String clientId = accessTokenRepository.findOneByTokenId(tokenId)//
-                                               .map(accessTokenEntity -> accessTokenEntity.getClientId())//
-                                               .orElseThrow(() -> new UsernameNotFoundException("Token " + tokenId
-                                                                                                + " was not found in the database"));
+                .map(accessTokenEntity -> accessTokenEntity.getClientId())//
+                .orElseThrow(() -> new UsernameNotFoundException("Token " + tokenId
+                        + " was not found in the database"));
         ClientDetailsEntity details = clientDetailsRepository.findOneByClientId(clientId).get();
         ClientDetailsLimitEntity clientLimit = details.getClientLimit();
 
         return new ImmutableTriple<Long, String, Long>(clientLimit.getIntervalInMills(), clientId,
-                                                       clientLimit.getLimits());
+                clientLimit.getLimits());
 
     }
 

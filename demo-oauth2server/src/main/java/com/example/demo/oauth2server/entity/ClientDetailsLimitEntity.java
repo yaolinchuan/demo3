@@ -17,8 +17,8 @@ import javax.persistence.*;
  * @version ClientLimitEntity.java, v 0.0.1 2017年4月1日 下午2:07:02 shimingliu
  */
 @Data
-@EqualsAndHashCode(of = { "intervalInMills", "limits" }, callSuper = true)
-@ToString(of = { "intervalInMills", "limits" }, callSuper = true)
+@EqualsAndHashCode(of = {"intervalInMills", "limits"}, callSuper = true)
+@ToString(of = {"intervalInMills", "limits"}, callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -27,10 +27,10 @@ import javax.persistence.*;
 public class ClientDetailsLimitEntity extends AbstractPersistable<Long> {
 
     @Column(name = "intervalInMills")
-    private Long                intervalInMills;
+    private Long intervalInMills;
 
     @Column(name = "limits")
-    private Long                limits;
+    private Long limits;
 
     @OneToOne
     @JoinColumn(name = "client_id")

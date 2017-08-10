@@ -19,10 +19,10 @@ security:
     enabled: false
   oauth2:
     client:
-      user-authorization-uri: http://localhost:8012/uaa/oauth/authorize
+      user-authorization-uri: http://localhost:8010/oauth2server/oauth/authorize
       client-id: acme
       client-secret: acmesecret
-      access-token-uri: http://localhost:8012/uaa/oauth/token
+      access-token-uri: http://localhost:8010/oauth2server/oauth/token
     resource:
       jwt:
         keyValue: |

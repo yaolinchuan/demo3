@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @EqualsAndHashCode(of = "tokenId", callSuper = false)
-@ToString(exclude = { "token", "authentication", "refreshToken" }, callSuper = false)
+@ToString(exclude = {"token", "authentication", "refreshToken"}, callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,7 +23,7 @@ public class AccessTokenEntity extends AbstractAuditable<Long> {
     @NonNull
     @NotNull
     @Column(name = "token_id", nullable = false, unique = true, length = 36)
-    private String               tokenId;
+    private String tokenId;
 
     @NonNull
     @NotNull
@@ -34,15 +34,15 @@ public class AccessTokenEntity extends AbstractAuditable<Long> {
     @NonNull
     @NotNull
     @Column(name = "authentication_id", nullable = false, length = 32)
-    private String               authenticationId;
+    private String authenticationId;
 
     @Size(max = 50)
     @Column(name = "user_name", length = 50)
-    private String               userName;
+    private String userName;
 
     @Size(max = 200)
     @Column(name = "client_id", length = 200)
-    private String               clientId;
+    private String clientId;
 
     @NonNull
     @NotNull
@@ -52,6 +52,6 @@ public class AccessTokenEntity extends AbstractAuditable<Long> {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "refresh_token_id", nullable = true)
-    private RefreshTokenEntity   refreshToken;
+    private RefreshTokenEntity refreshToken;
 
 }
