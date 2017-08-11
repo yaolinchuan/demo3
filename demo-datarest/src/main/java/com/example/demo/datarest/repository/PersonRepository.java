@@ -10,10 +10,13 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by liyuhong on 2017/8/10.
  */
 @RepositoryRestResource(collectionResourceRel = "people", path = "people")
+//@Transactional
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @ApiOperation("Find somebody by it's last name")
     @ApiImplicitParams({
