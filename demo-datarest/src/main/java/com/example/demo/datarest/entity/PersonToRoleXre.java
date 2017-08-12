@@ -19,16 +19,15 @@ public class PersonToRoleXre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NonNull
-    @NotNull
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "person_id", nullable = false)
+
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id")
     private Person person;
 
-    @NonNull
-    @NotNull
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    //@Where(clause = "disabled = False")
-    private Role role;
+//    @NonNull
+//    @NotNull
+//    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "role_id", nullable = false)
+//    //@Where(clause = "disabled = False")
+//    private Role role;
 }

@@ -1,5 +1,6 @@
 package com.example.demo.oauth2server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -21,8 +22,20 @@ public class ScopeEntity extends AbstractPersistable<Long> {
     @Column(name = "value", nullable = false)
     private String value;
 
-    @OneToMany(mappedBy = "scope", fetch = FetchType.LAZY)
+    @NonNull
+    @NotNull
+    @Column(name = "auto_approve", nullable = false)
+    private Boolean autoApprove;
+
+//    @JsonIgnore
+//    @Singular
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+//    private Set<ClientDetailsEntity> clientDetailsEntities;
+
+ /*   @OneToMany(mappedBy = "scope", fetch = FetchType.LAZY)
     @Singular
-    private Set<ClientDetailsToScopesXrefEntity> clientDetailsToScopesXrefs;
+    private Set<ClientDetailsToScopesXrefEntity> clientDetailsToScopesXrefs;*/
+
+
 
 }

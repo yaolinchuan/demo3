@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "redirect_uri")
+@Table(name = "redirect_uris")
 public class RedirectUriEntity extends AbstractAuditable<Long> {
 
     @NonNull

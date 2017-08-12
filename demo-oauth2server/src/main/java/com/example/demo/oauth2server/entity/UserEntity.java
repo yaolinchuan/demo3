@@ -1,7 +1,10 @@
 package com.example.demo.oauth2server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,6 +20,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "userinfos")
+@DynamicUpdate(true)
 public class UserEntity extends AbstractAuditable<Long> {
 
     public static final String           NAME_REGEX = "^[A-Za-z0-9_]*$";
@@ -28,8 +32,10 @@ public class UserEntity extends AbstractAuditable<Long> {
     private String                       username;
 
     @NotNull
-    @Size(min = 60, max = 60)
-    @Column(name = "password_hash", length = 60, nullable = false)
+    @RestResource(exported = false)
+    //@JsonIgnore
+    @Size(max = 60)
+    @Column(name = "pwd", length = 60, nullable = false, updatable = false)
     private String                       password;
 
     @NotNull
@@ -37,12 +43,42 @@ public class UserEntity extends AbstractAuditable<Long> {
     @ColumnDefault("False")
     private boolean                      disabled;
 
-    @Singular
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserRoleXrefEntity>      roles;
 
     @Singular
-    @OneToMany(mappedBy = "authority", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<UserAuthorityXrefEntity> authorities;
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles",
+            joinColumns = {@JoinColumn(name = "userId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")})
+    private Set<RoleEntity> roles;
+
+
+    @NotNull
+    @Column(nullable = false)
+    @ColumnDefault("False")
+    private boolean accountNonExpired;
+
+    @NotNull
+    @Column(nullable = false)
+    @ColumnDefault("False")
+    private boolean accountNonLocked;
+
+    @NotNull
+    @Column(nullable = false)
+    @ColumnDefault("False")
+    private boolean credentialsNonExpired;
+
+/*    @NotNull
+    @Column(nullable = false)
+    @ColumnDefault("true")
+    private boolean enabled =true;*/
+
+//    @Singular
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<UserRoleXrefEntity>      roles;
+//
+//    @Singular
+//    @OneToMany(mappedBy = "authority", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<UserAuthorityXrefEntity> authorities;
 
 }
