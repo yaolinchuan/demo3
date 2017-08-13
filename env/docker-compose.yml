@@ -7,7 +7,8 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - /f/vm/docker/gitlab/redis:/var/lib/redis:Z
+      - /f/vm/docker/env/redis:/var/lib/redis
+      - /f/vm/docker/env/redis/data:/data
 
   postgresql:
     image: sameersbn/postgresql:latest
@@ -32,7 +33,7 @@ services:
     - "10080:80"
     - "10022:22"
     volumes:
-    - /f/vm/docker/gitlab/gitlab:/home/git/data:Z
+    - /f/vm/docker/env/gitlab:/home/git/data:Z
     environment:
     - DEBUG=false
 
@@ -159,5 +160,5 @@ services:
       - "10081:8080"
       - "50000:50000"
     volumes:
-      - /f/vm/docker/gitlab/jenkins:/var/jenkins_home
+      - /f/vm/docker/env/jenkins:/var/jenkins_home
 
