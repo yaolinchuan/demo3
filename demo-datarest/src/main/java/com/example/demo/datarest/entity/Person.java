@@ -33,7 +33,8 @@ public class Person implements Serializable {
 //    @JsonIgnore
 //    private Set<Role> roles;
 
-    @Singular
+    //    @Singular
+    @JsonIgnore
     @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PersonToRoleXre> roles;
 }

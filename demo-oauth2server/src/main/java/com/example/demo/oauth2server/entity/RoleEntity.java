@@ -1,5 +1,6 @@
 package com.example.demo.oauth2server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -15,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "roles")
+@Table(name = "roleinfos")
 public class RoleEntity extends AbstractPersistable<Long> {
 
     @NotNull
@@ -27,10 +28,15 @@ public class RoleEntity extends AbstractPersistable<Long> {
     @ColumnDefault("False")
     private boolean disabled;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RoleAuthorityXrefEntity> authorities;
+//    @JsonIgnore
+//    @Singular
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+//    private Set<UserEntity> users;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private Set<UserRoleXrefEntity> users;
+//    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<RoleAuthorityXrefEntity> authorities;
+//
+//    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+//    private Set<UserRoleXrefEntity> users;
 
 }

@@ -29,8 +29,8 @@ public class Role implements Serializable {
 //            inverseJoinColumns = {@JoinColumn(name = "userId", referencedColumnName = "id")})
 //    private Set<Person> persons;
 
-    @Singular
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PersonToRoleXre> persons;
+//    @Singular
+//    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<PersonToRoleXre> persons;
 
 }

@@ -13,15 +13,15 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "resource")
-public class ResourceIdEntity extends AbstractAuditable<Long> {
+@Table(name = "resources")
+public class ResourceEntity extends AbstractAuditable<Long> {
 
     @NonNull
     @NotNull
     @Column(name = "value", nullable = false)
     private String value;
 
-    @Singular
-    @OneToMany(mappedBy = "resourceId", fetch = FetchType.LAZY)
-    private Set<ClientDetailsToResourceIdXrefEntity> clientDetailsToResourceIdXrefs;
+//    @Singular
+//    @OneToMany(mappedBy = "resourceId", fetch = FetchType.LAZY)
+//    private Set<ClientDetailsToResourceIdXrefEntity> clientDetailsToResourceIdXrefs;
 }

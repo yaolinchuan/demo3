@@ -1,6 +1,5 @@
 package com.example.demo.oauth2server.repository;
 
-import com.example.demo.oauth2server.entity.AccessTokenEntity;
 import com.example.demo.oauth2server.entity.AuthorityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

@@ -13,14 +13,14 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "grant_type")
+@Table(name = "grant_types")
 public class GrantTypeEntity extends AbstractPersistable<Long> {
 
     @Column(name = "value", nullable = false)
     private String value;
 
-    @Singular
-    @OneToMany(mappedBy = "grantType", fetch = FetchType.LAZY)
-    private Set<ClientDetailsToAuthorizedGrantTypeXrefEntity> clientDetailsToAuthorizedGrantTypeXrefs;
+//    @Singular
+//    @OneToMany(mappedBy = "grantType", fetch = FetchType.LAZY)
+//    private Set<ClientDetailsToAuthorizedGrantTypeXrefEntity> clientDetailsToAuthorizedGrantTypeXrefs;
 
 }

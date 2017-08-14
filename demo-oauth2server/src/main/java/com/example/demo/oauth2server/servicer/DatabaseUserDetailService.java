@@ -1,13 +1,8 @@
 package com.example.demo.oauth2server.servicer;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.ImmutableTriple;
-import org.apache.commons.lang3.tuple.Triple;
-import com.example.demo.oauth2server.entity.ClientDetailsEntity;
-import com.example.demo.oauth2server.entity.ClientDetailsLimitEntity;
-import com.example.demo.oauth2server.repository.AccessTokenRepository;
 import com.example.demo.oauth2server.repository.ClientDetailsRepository;
 import com.example.demo.oauth2server.repository.UserRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -28,8 +23,8 @@ public class DatabaseUserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private AccessTokenRepository accessTokenRepository;
+//    @Autowired
+//    private AccessTokenRepository accessTokenRepository;
 
     @Autowired
     private ClientDetailsRepository clientDetailsRepository;
@@ -38,26 +33,31 @@ public class DatabaseUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findOneByUsername(username).map(userEntity -> //
                 new User(userEntity.getUsername(), //
-                        userEntity.getPassword(), //
-                        userEntity.getRoles().stream().map(userRoleXRef -> //
-                                new SimpleGrantedAuthority(prefixRoleName(userRoleXRef.getRole().getName())))//
-                                .collect(Collectors.toList())))//
+                        userEntity.getPassword(),
+                        !userEntity.isDisabled(),
+                        !userEntity.isAccountNonExpired(),
+                        !userEntity.isCredentialsNonExpired(),
+                        !userEntity.isAccountNonLocked(),//
+                        userEntity.getRoles().stream().map(userRole -> //
+                                new SimpleGrantedAuthority(prefixRoleName(userRole.getName())))//
+                                .collect(Collectors.toList())
+                ))//
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username
                         + " was not found in the database"));
     }
 
-    public Triple<Long, String, Long> loadClientByToken(String tokenId) {
-        String clientId = accessTokenRepository.findOneByTokenId(tokenId)//
-                .map(accessTokenEntity -> accessTokenEntity.getClientId())//
-                .orElseThrow(() -> new UsernameNotFoundException("Token " + tokenId
-                        + " was not found in the database"));
-        ClientDetailsEntity details = clientDetailsRepository.findOneByClientId(clientId).get();
-        ClientDetailsLimitEntity clientLimit = details.getClientLimit();
-
-        return new ImmutableTriple<Long, String, Long>(clientLimit.getIntervalInMills(), clientId,
-                clientLimit.getLimits());
-
-    }
+//    public Triple<Long, String, Long> loadClientByToken(String tokenId) {
+//        String clientId = accessTokenRepository.findOneByTokenId(tokenId)//
+//                .map(accessTokenEntity -> accessTokenEntity.getClientId())//
+//                .orElseThrow(() -> new UsernameNotFoundException("Token " + tokenId
+//                        + " was not found in the database"));
+//        ClientDetailsEntity details = clientDetailsRepository.findOneByClientId(clientId).get();
+//        ClientDetailsLimitEntity clientLimit = details.getClientLimit();
+//
+//        return new ImmutableTriple<Long, String, Long>(clientLimit.getIntervalInMills(), clientId,
+//                clientLimit.getLimits());
+//
+//    }
 
     private String prefixRoleName(String roleName) {
         if (!StringUtils.isEmpty(roleName) && !roleName.startsWith(ROLE_PREFIX)) {

@@ -3,13 +3,11 @@ package com.example.demo.oauth2server.config;
 import com.example.demo.oauth2server.entity.*;
 import com.example.demo.oauth2server.repository.ClientDetailsRepository;
 import com.example.demo.oauth2server.repository.GrantTypeRepository;
-import com.example.demo.oauth2server.repository.ResourceIdRepository;
+import com.example.demo.oauth2server.repository.ResourceRepository;
 import com.example.demo.oauth2server.repository.ScopeRepository;
 import com.example.demo.oauth2server.servicer.OAuth2DatabaseClientDetailsService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.loader.ResourceEntry;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.resource.jdbc.ResourceRegistry;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +44,7 @@ public class DefaultClientDetailsConfiguration implements InitializingBean {
     @Autowired
     private ScopeRepository scopeRepository;
     @Autowired
-    private ResourceIdRepository resourceIdRepository;
+    private ResourceRepository resourceRepository;
 
     @Autowired
     private OAuth2DatabaseClientDetailsService oAuth2DatabaseClientDetailsService;
@@ -63,12 +61,12 @@ public class DefaultClientDetailsConfiguration implements InitializingBean {
         }
         if (scopeRepository.count() == 0) {
             scopeRepository.save(Arrays.stream(DEFAULT_SCOPES)//
-                    .map(scope -> ScopeEntity.builder().value(scope).build())//
+                    .map(scope -> ScopeEntity.builder().value(scope).autoApprove(false).build())//
                     .collect(Collectors.toList()));
         }
-        if (resourceIdRepository.count() == 0) {
-            resourceIdRepository.save(Arrays.stream(DEFAULT_RESOURCES)//
-                    .map(resourceId -> ResourceIdEntity.builder().value(resourceId).build())//
+        if (resourceRepository.count() == 0) {
+            resourceRepository.save(Arrays.stream(DEFAULT_RESOURCES)//
+                    .map(resourceId -> ResourceEntity.builder().value(resourceId).build())//
                     .collect(Collectors.toList()));
         }
 
@@ -88,9 +86,9 @@ public class DefaultClientDetailsConfiguration implements InitializingBean {
             oAuth2DatabaseClientDetailsService.addClientDetails(clientDetails);
             // 每隔open_api 10秒内最多只能调用3次api
             ClientDetailsEntity detailEntity = clientDetailsRepository.findOneByClientId(clientDetails.getClientId()).get();
-            ClientDetailsLimitEntity limitEntity = ClientDetailsLimitEntity.builder().intervalInMills(10000L).limits(3L).build();
-            detailEntity.setClientLimit(limitEntity);
-            limitEntity.setClientDetail(detailEntity);
+//            ClientDetailsLimitEntity limitEntity = ClientDetailsLimitEntity.builder().intervalInMills(10000L).limits(3L).build();
+//            detailEntity.setClientLimit(limitEntity);
+//            limitEntity.setClientDetail(detailEntity);
             clientDetailsRepository.save(detailEntity);
         } catch (ClientAlreadyExistsException e) {
             log.warn(e.getMessage());

@@ -28,6 +28,7 @@
         <module>demo-oauth2server</module>
         <module>demo-oauth2sso</module>
         <module>demo-datarest</module>
+        <module>demo-ratelimiter</module>
 
 
 	</modules>
