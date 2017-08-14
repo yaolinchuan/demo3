@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by liyuhong on 2017/8/10.
  */
 @Data
-@EqualsAndHashCode(of = "name", callSuper = false)
+@EqualsAndHashCode(of = "username", callSuper = false)
 @ToString(of = "name", callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
