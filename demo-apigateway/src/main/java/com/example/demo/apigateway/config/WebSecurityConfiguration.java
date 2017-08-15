@@ -15,6 +15,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity security) {
-        security.ignoring().antMatchers("/oauth2server/**");
+        security.ignoring().antMatchers("/**");
     }
 }

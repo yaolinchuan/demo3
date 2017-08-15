@@ -137,3 +137,4 @@ proxy:
     load-balanced: true
     routes:
       oauth2resource: oauth2
+      oauth2server: oauth2
