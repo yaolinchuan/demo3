@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.client.token.grant.implicit.ImplicitR
  */
 public class ImplicitFeignClientConfiguration {
 
-    //@Bean
+    @Bean
     public RequestInterceptor oauth2FeignRequestInterceptor() {
 
         return new OAuth2FeignRequestInterceptor(oauth2ClientContext(), resource());

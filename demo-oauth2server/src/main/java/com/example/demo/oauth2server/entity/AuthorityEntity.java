@@ -1,11 +1,10 @@
 package com.example.demo.oauth2server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,9 +25,27 @@ public class AuthorityEntity extends AbstractAuditable<Long> {
     @Column(name = "authority_name", unique = true, length = 50)
     private String authorityName;
 
+
+    private String uri;
+    /*  @Getter @Setter
+      private Integer resourceId;*/
+
+
+    private String method;
+
+    @NonNull
+    @NotNull
+    @JsonIgnore
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "resourceId", nullable = false)
+    private ResourceEntity resourceEntity;
+
+
+
     @NotNull
     @Column(name = "disabled", nullable = false)
     @ColumnDefault("False")
     private boolean disabled;
+
 
 }

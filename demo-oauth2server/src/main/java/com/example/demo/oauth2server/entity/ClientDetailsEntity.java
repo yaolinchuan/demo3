@@ -65,6 +65,15 @@ public class ClientDetailsEntity extends AbstractAuditable<Long> {
     private Set<ResourceEntity> resourceEntities;
 
 
+    @Singular
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "client_details_authorities",
+            joinColumns = {@JoinColumn(name = "clientDetailId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authorityId", referencedColumnName = "id")})
+    private Set<AuthorityEntity> authorityEntities;
+
+
 //    @Singular
 //    @OneToMany(mappedBy = "clientDetails", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
 //    private Set<ClientDetailsToAuthorizedGrantTypeXrefEntity> authorizedGrantTypeXrefs;

@@ -38,8 +38,8 @@ public class DatabaseUserDetailService implements UserDetailsService {
                         !userEntity.isAccountNonExpired(),
                         !userEntity.isCredentialsNonExpired(),
                         !userEntity.isAccountNonLocked(),//
-                        userEntity.getRoles().stream().map(userRole -> //
-                                new SimpleGrantedAuthority(prefixRoleName(userRole.getName())))//
+                        userEntity.getAuthorityEntities().stream().map(authorityEntity -> //
+                                new SimpleGrantedAuthority(prefixRoleName(authorityEntity.getAuthorityName())))//
                                 .collect(Collectors.toList())
                 ))//
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username

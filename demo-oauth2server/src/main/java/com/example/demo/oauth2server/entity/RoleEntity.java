@@ -28,6 +28,15 @@ public class RoleEntity extends AbstractPersistable<Long> {
     @ColumnDefault("False")
     private boolean disabled;
 
+    @Singular
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "roles_authorities",
+            joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authorityId", referencedColumnName = "id")})
+    private Set<AuthorityEntity> authorityEntities;
+
+
 //    @JsonIgnore
 //    @Singular
 //    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)

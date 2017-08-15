@@ -7,6 +7,7 @@ import com.example.demo.oauth2server.repository.GrantTypeRepository;
 import com.example.demo.oauth2server.repository.ResourceRepository;
 import com.example.demo.oauth2server.repository.ScopeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
@@ -36,6 +37,12 @@ public class OAuth2DatabaseClientDetailsService implements ClientDetailsService,
         clientDetails.setAuthorizedGrantTypes(entity.getGrantTypeEntities().stream().map(GrantTypeEntity::getValue).collect(Collectors.toList()));
 
         clientDetails.setScope(entity.getScopeEntities().stream().map(ScopeEntity::getValue).collect(Collectors.toList()));
+        clientDetails.setAuthorities(entity.getAuthorityEntities().stream().map(authorityEntity -> new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return "ROLE_" + authorityEntity.getAuthorityName();
+            }
+        }).collect(Collectors.toList()));
 
         clientDetails.setAutoApproveScopes(entity.getScopeEntities().stream().filter(ScopeEntity::getAutoApprove).map(ScopeEntity::getValue).collect(Collectors.toList()));
 

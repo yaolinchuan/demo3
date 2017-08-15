@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class DefaultClientDetailsConfiguration implements InitializingBean {
 
     private static final String[] DEFAULT_GRANT_TYPES = {"authorization_code", "refresh_token",
-            "password", "client_credentials"};
+            "password", "client_credentials", "implicit"};
 
     private static final String API_GRANT_TYPES = StringUtils.join(DEFAULT_GRANT_TYPES, ",");
 

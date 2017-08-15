@@ -68,6 +68,15 @@ public class UserEntity extends AbstractAuditable<Long> {
     @ColumnDefault("False")
     private boolean credentialsNonExpired;
 
+    @Singular
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_authorities",
+            joinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authorityId", referencedColumnName = "id")})
+    private Set<AuthorityEntity> authorityEntities;
+
+
 /*    @NotNull
     @Column(nullable = false)
     @ColumnDefault("true")
